@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://s4hanadev:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://s4hanadev:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://s4hanadev:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://s4hanadev:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://s4hanadev:8000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZV_CUSTOMERS_V2_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZV_Customers_v2Type" sap:label="Customers" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customerid"/>
+                    <PropertyRef Name="Orderid"/>
+                </Key>
+                <Property Name="Customerid" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Object Identifier" sap:quickinfo="Object Identification in Segments"/>
+                <Property Name="Orderid" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Object Identifier" sap:quickinfo="Object Identification in Segments"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="40" sap:label="EDM Type" sap:quickinfo="EDM Type of Property"/>
+                <Property Name="Adress" Type="Edm.String" MaxLength="40" sap:label="EDM Type" sap:quickinfo="EDM Type of Property"/>
+                <Property Name="City" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="City"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="15" sap:label="Country flag" sap:quickinfo="Country (localization)"/>
+                <Property Name="Postalcode" Type="Edm.String" MaxLength="10" sap:label="Postleitzahl"/>
+                <Property Name="Phone" Type="Edm.String" MaxLength="20" sap:label="Telephone Number"/>
+                <NavigationProperty Name="to_zord" Relationship="ZV_CUSTOMERS_V2_CDS.assoc_F76240F1E098B0D528006D75667BB98B" FromRole="FromRole_assoc_F76240F1E098B0D528006D75667BB98B" ToRole="ToRole_assoc_F76240F1E098B0D528006D75667BB98B"/>
+            </EntityType>
+            <EntityType Name="zv_ordersType" sap:label="orders" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Orderid"/>
+                    <PropertyRef Name="Customerid"/>
+                </Key>
+                <Property Name="Orderid" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Object Identifier" sap:quickinfo="Object Identification in Segments"/>
+                <Property Name="Customerid" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Object Identifier" sap:quickinfo="Object Identification in Segments"/>
+                <Property Name="Paymentid" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="Object Identifier" sap:quickinfo="Object Identification in Segments"/>
+                <Property Name="Orderdate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date" sap:quickinfo="Field of type DATS"/>
+                <Property Name="Shipdate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date" sap:quickinfo="Field of type DATS"/>
+                <Property Name="Shipvia" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Shipment Type"/>
+                <Property Name="Shipcity" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="City"/>
+                <Property Name="Shipstreet" Type="Edm.String" MaxLength="60" sap:label="Street"/>
+                <Property Name="Shippostalcode" Type="Edm.String" MaxLength="10" sap:label="Postleitzahl"/>
+                <Property Name="Shipnumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Address Number"/>
+                <Property Name="Shipcountry" Type="Edm.String" sap:label="Concatenated Address"/>
+                <Property Name="Documentorder" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <Association Name="assoc_F76240F1E098B0D528006D75667BB98B" sap:content-version="1">
+                <End Type="ZV_CUSTOMERS_V2_CDS.ZV_Customers_v2Type" Multiplicity="1" Role="FromRole_assoc_F76240F1E098B0D528006D75667BB98B"/>
+                <End Type="ZV_CUSTOMERS_V2_CDS.zv_ordersType" Multiplicity="*" Role="ToRole_assoc_F76240F1E098B0D528006D75667BB98B"/>
+            </Association>
+            <EntityContainer Name="ZV_CUSTOMERS_V2_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZV_Customers_v2" EntityType="ZV_CUSTOMERS_V2_CDS.ZV_Customers_v2Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zv_orders" EntityType="ZV_CUSTOMERS_V2_CDS.zv_ordersType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_F76240F1E098B0D528006D75667BB98B" Association="ZV_CUSTOMERS_V2_CDS.assoc_F76240F1E098B0D528006D75667BB98B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZV_Customers_v2" Role="FromRole_assoc_F76240F1E098B0D528006D75667BB98B"/>
+                    <End EntitySet="zv_orders" Role="ToRole_assoc_F76240F1E098B0D528006D75667BB98B"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZV_CUSTOMERS_V2_CDS.ZV_CUSTOMERS_V2_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZV_CUSTOMERS_V2_CDS.ZV_CUSTOMERS_V2_CDS_Entities/zv_orders" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Shipcountry"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Shipcountry</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://s4hanadev:8000/sap/opu/odata/sap/ZV_CUSTOMERS_V2_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://s4hanadev:8000/sap/opu/odata/sap/ZV_CUSTOMERS_V2_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
